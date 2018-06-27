@@ -95,6 +95,9 @@
 			Call m_Tester.assertFalse(varActual, strDescription)
 		End Function
 
+		Public Function assertInstanceOf(objToCheck, strExpectedType, strDescription)
+			Call m_Tester.assertInstanceOf(objToCheck,strExpectedType, strDescription)
+		End Function
 		' UI Service Facade
 
 		Public Property Set Theme(ByRef objValue)

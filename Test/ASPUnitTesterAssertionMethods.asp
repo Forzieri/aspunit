@@ -73,6 +73,17 @@
 			objLifecycle _
 		) _
 	)
+	
+	Call ASPUnit.AddModule( _
+		ASPUnit.CreateModule( _
+			"ASPUnitTester assert instance of Assertion Method Tests", _
+			Array( _
+				ASPUnit.CreateTest("ASPUnitTesterAssertInstanceOfWithRightType"), _
+				ASPUnit.CreateTest("ASPUnitTesterAssertInstanceOfWithWrongType") _
+			), _
+			objLifecycle _
+		) _
+	)
 
 	Call ASPUnit.Run()
 
@@ -132,7 +143,7 @@
 		Set objA = Nothing
 	End Sub
 
-	' Assert truty or falsey Method Tests
+	' Assert truthy or falsey Method Tests
 
 	Sub ASPUnitTesterAssertTruePassedTruthy()
 		Call ASPUnit.Equal(objService.assertTrue(True, ""), True, "Assert True of true should be true")
@@ -150,6 +161,17 @@
 		Call ASPUnit.Equal(objService.assertFalse(False, ""), True, "Assert false of false should be true")
 	End Sub
 
+	Sub ASPUnitTesterAssertInstanceOfWithRightType()
+		Dim regex 
+		Set regex = New RegExp
+		Call ASPUnit.Equal(objService.assertInstanceOf(regex, "IRegExp2", ""), True, "Regexp instance should be of IRegExp2 type")
+	End Sub
+
+	Sub ASPUnitTesterAssertInstanceOfWithWrongType()
+		Dim notRegexp 
+		notRegexp = "Not a string"
+		Call ASPUnit.Equal(objService.assertInstanceOf(notRegexp, "IRegExp2", ""), False, "String instance should not be of IRegExp2 type")
+	End Sub
 
 	Sub ASPUnitTesterSamePassedFalsey()
 		Dim objA, _

@@ -114,6 +114,10 @@
 			assertFalse = Equal(varActual, False, strDescription)
 		End Function
 
+		Public Function assertInstanceOf(objToCheck, strExpectedType, strDescription)
+			assertInstanceOf = Equal(TypeName(objToCheck), strExpectedType, strDescription)
+		End Function
+
 		' Methods to run module tests
 
 		Public Sub Run()
