@@ -87,6 +87,14 @@
 			Call m_Tester.NotSame(varActual, varExpected, strDescription)
 		End Function
 
+		Public Function assertTrue(varActual, strDescription)
+			Call m_Tester.assertTrue(varActual, strDescription)
+		End Function
+
+		Public Function assertFalse(varActual, strDescription)
+			Call m_Tester.assertFalse(varActual, strDescription)
+		End Function
+
 		' UI Service Facade
 
 		Public Property Set Theme(ByRef objValue)

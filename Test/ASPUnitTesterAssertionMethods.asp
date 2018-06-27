@@ -61,6 +61,19 @@
 		) _
 	)
 
+	Call ASPUnit.AddModule( _
+		ASPUnit.CreateModule( _
+			"ASPUnitTester assert true & false Assertion Method Tests", _
+			Array( _
+				ASPUnit.CreateTest("ASPUnitTesterAssertTruePassedTruthy"), _
+				ASPUnit.CreateTest("ASPUnitTesterAssertTruePassedFalsey"), _
+				ASPUnit.CreateTest("ASPUnitTesterAssertFalsePassedTruthy"), _
+				ASPUnit.CreateTest("ASPUnitTesterAssertFalsePassedFalsey") _
+			), _
+			objLifecycle _
+		) _
+	)
+
 	Call ASPUnit.Run()
 
 	' Create a global instance of ASPUnitTester for testing
@@ -118,6 +131,25 @@
 		Set objB = Nothing
 		Set objA = Nothing
 	End Sub
+
+	' Assert truty or falsey Method Tests
+
+	Sub ASPUnitTesterAssertTruePassedTruthy()
+		Call ASPUnit.Equal(objService.assertTrue(True, ""), True, "Assert True of true should be true")
+	End Sub
+
+	Sub ASPUnitTesterAssertTruePassedFalsey()
+		Call ASPUnit.Equal(objService.assertTrue(False, ""), False, "Assert True of false should be false")
+	End Sub
+
+	Sub ASPUnitTesterAssertFalsePassedTruthy()
+		Call ASPUnit.Equal(objService.assertFalse(True, ""), False, "Assert false of True should be false")
+	End Sub
+
+	Sub ASPUnitTesterAssertFalsePassedFalsey()
+		Call ASPUnit.Equal(objService.assertFalse(False, ""), True, "Assert false of false should be true")
+	End Sub
+
 
 	Sub ASPUnitTesterSamePassedFalsey()
 		Dim objA, _

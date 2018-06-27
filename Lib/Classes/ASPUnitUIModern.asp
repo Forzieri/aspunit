@@ -262,7 +262,7 @@
 					<script id="page-report-template" type="text/x-handlebars-template">
 						<div class="page-report container">
 							<div class="page-overview">
-								<h3>{{page}} <small>{{passCount}} of {{testCount}} tests passed</small></h3>
+								<h3><a href="{{page}}">{{page}}</a> <small>{{passCount}} of {{testCount}} tests passed</small></h3>
 							</div>
 							{{#each modules}}
 								<div class="page-module page-module-{{#if passed}}pass{{else}}fail{{/if}}">
@@ -359,7 +359,7 @@
 							$(document).on('click', '.action-hide-passed', function(e) {
 								e.preventDefault();
 
-								var $el = $(e.target);
+								var $el = $(e.currentTarget);
 
 								if ($el.hasClass('active')) {
 									$el.removeClass('active').html('<i class="glyphicon glyphicon-remove-sign"></i> Hide Passed Tests</a>');

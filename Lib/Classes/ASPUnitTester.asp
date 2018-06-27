@@ -106,6 +106,14 @@
 			NotSame = Assert(Not (varActual Is varExpected), strDescription)
 		End Function
 
+		Public Function assertTrue(varActual,strDescription)
+			assertTrue = Equal(varActual, True, strDescription)
+		End Function
+
+		Public Function assertFalse(varActual,strDescription)
+			assertFalse = Equal(varActual, False, strDescription)
+		End Function
+
 		' Methods to run module tests
 
 		Public Sub Run()
@@ -244,10 +252,27 @@
 	End Class
 
 	Class ASPUnitTest
-		Public _
-			Name, _
-			Passed, _
-			Description
+		Public Name
+		Public Passed
+
+		Private m_Description
+
+		Private Sub Class_Initialize
+			Set m_Description = Server.CreateObject("Commerce.SimpleList")
+		End Sub
+
+		Public Property Let Description(value)
+			m_Description.Add value
+		End Property
+
+		Public Property Get Description
+			Dim out, index, value
+			out = ""
+			for each value in m_Description
+				out = out & value & ", "
+			next
+			Description = Left(out, Len(out) - 2)
+		End Property
 	End Class
 
 	Class ASPUnitTestLifecycle
