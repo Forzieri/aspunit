@@ -58,7 +58,9 @@
 					Call objStream.WriteText("{")
 					Call objStream.WriteText(JSONStringPair("name", objTest.Name) & ",")
 					Call objStream.WriteText(JSONBooleanPair("passed", objTest.Passed) & ",")
-					Call objStream.WriteText(JSONStringPair("description", objTest.Description))
+					Call objStream.WriteText(JSONStringPair("description", objTest.Description) & ",")
+					Call objStream.WriteText(JSONStringPair("var_actual", objTest.varActual) & ",")
+					Call objStream.WriteText(JSONStringPair("var_expected", objTest.varExpected))
 					Call objStream.WriteText("}")
 
 					If j < (objModule.Tests.Count - 1) Then

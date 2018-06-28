@@ -86,23 +86,34 @@
 			Assert = blnResult
 		End Function
 
+		Private Sub SetInputsOnCurrentTest(varActual, varExpected)
+			If IsObject(m_CurrentTest) Then
+				m_CurrentTest.varActual = varActual
+				m_CurrentTest.varExpected = varExpected
+			End If
+		End Sub
+
 		Public Function Ok(blnResult, strDescription)
 			Ok = Assert(blnResult, strDescription)
 		End Function
 
 		Public Function Equal(varActual, varExpected, strDescription)
+			SetInputsOnCurrentTest varActual, varExpected
 			Equal = Assert((varActual = varExpected), strDescription)
 		End Function
 
 		Public Function NotEqual(varActual, varExpected, strDescription)
+			SetInputsOnCurrentTest varActual, varExpected
 			NotEqual = Assert(Not (varActual = varExpected), strDescription)
 		End Function
 
 		Public Function Same(varActual, varExpected, strDescription)
+			SetInputsOnCurrentTest varActual, varExpected
 			Same = Assert((varActual Is varExpected), strDescription)
 		End Function
 
 		Public Function NotSame(varActual, varExpected, strDescription)
+			SetInputsOnCurrentTest varActual, varExpected
 			NotSame = Assert(Not (varActual Is varExpected), strDescription)
 		End Function
 
@@ -258,11 +269,15 @@
 	Class ASPUnitTest
 		Public Name
 		Public Passed
+		Public varActual
+		Public varExpected
 
 		Private m_Description
 
 		Private Sub Class_Initialize
 			Set m_Description = Server.CreateObject("Commerce.SimpleList")
+			varActual = Empty
+			varExpected = Empty
 		End Sub
 
 		Public Property Let Description(value)
