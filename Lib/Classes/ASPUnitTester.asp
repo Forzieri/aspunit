@@ -88,8 +88,16 @@
 
 		Private Sub SetInputsOnCurrentTest(varActual, varExpected)
 			If IsObject(m_CurrentTest) Then
-				m_CurrentTest.varActual = varActual
-				m_CurrentTest.varExpected = varExpected
+				if IsObject(varActual) then
+					Set m_CurrentTest.varActual = varActual
+				else
+					m_CurrentTest.varActual = varActual
+				end if
+				if IsObject(varExpected) then
+					Set m_CurrentTest.varExpected = varExpected
+				else 
+					m_CurrentTest.varExpected = varExpected
+				end if
 			End If
 		End Sub
 
@@ -100,6 +108,23 @@
 		Public Function Equal(varActual, varExpected, strDescription)
 			SetInputsOnCurrentTest varActual, varExpected
 			Equal = Assert((varActual = varExpected), strDescription)
+		End Function
+
+		Public Function StrictEqual(varActual, varExpected, strDescription)
+			SetInputsOnCurrentTest varActual, varExpected
+			if TypeName(varActual) = TypeName(varExpected) Then
+				Equal = Assert((varActual = varExpected), strDescription)
+			else
+				Equal = Assert(False, strDescription)
+			end if
+		End Function
+
+		Public Function assertIsNull(varActual, strDescription)
+			assertIsNull = assertTrue(IsNull(varActual), strDescription)
+		End Function
+
+		Public Function assertIsEmpty(varActual, strDescription)
+			assertIsEmpty = assertTrue(IsEmpty(varActual), strDescription)
 		End Function
 
 		Public Function NotEqual(varActual, varExpected, strDescription)

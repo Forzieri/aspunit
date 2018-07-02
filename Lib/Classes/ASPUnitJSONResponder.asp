@@ -29,7 +29,8 @@
 				objModule, _
 				objTest, _
 				i, j, _
-				strReturn
+				strReturn, _
+				varActual, varExpected
 
 			Set objStream = Server.CreateObject("ADODB.Stream")
 
@@ -59,8 +60,18 @@
 					Call objStream.WriteText(JSONStringPair("name", objTest.Name) & ",")
 					Call objStream.WriteText(JSONBooleanPair("passed", objTest.Passed) & ",")
 					Call objStream.WriteText(JSONStringPair("description", objTest.Description) & ",")
-					Call objStream.WriteText(JSONStringPair("var_actual", objTest.varActual) & ",")
-					Call objStream.WriteText(JSONStringPair("var_expected", objTest.varExpected))
+					if IsObject(objTest.varActual) then
+						varActual = "object |" & TypeName(objTest.varActual)
+					else
+						varActual = objTest.varActual
+					end if
+					if IsObject(objTest.varExpected) then
+						varExpected = "object |" & TypeName(objTest.varExpected)
+					else 
+						varExpected = objTest.varExpected
+					end if
+					Call objStream.WriteText(JSONStringPair("var_actual", varActual) & ",")
+					Call objStream.WriteText(JSONStringPair("var_expected", varExpected))
 					Call objStream.WriteText("}")
 
 					If j < (objModule.Tests.Count - 1) Then
@@ -108,17 +119,20 @@
 		End Function
 
 		Private Function JSONStringEscape(strValue)
-			Dim strReturn
+			Dim strReturn, valueType
 
 			strReturn = strValue
-
-			strReturn = Replace(strReturn, "\", "\\")
-			strReturn = Replace(strReturn, """", "\""")
-			strReturn = Replace(strReturn, vbLf, "\n")
-			strReturn = Replace(strReturn, vbCr, "\n")
-			strReturn = Replace(strReturn, vbCrLf, "\n")
-			strReturn = Replace(strReturn, vbTab, "\t")
-
+			valueType = TypeName(strValue)
+			if  valueType = "String" then
+				strReturn = Replace(strReturn, "\", "\\")
+				strReturn = Replace(strReturn, """", "\""")
+				strReturn = Replace(strReturn, vbLf, "\n")
+				strReturn = Replace(strReturn, vbCr, "\n")
+				strReturn = Replace(strReturn, vbCrLf, "\n")
+				strReturn = Replace(strReturn, vbTab, "\t")
+			else 
+				strReturn = valueType
+			end if
 			JSONStringEscape = strReturn
 		End Function
 	End Class

@@ -53,12 +53,15 @@ End Function
 
 - `Ok(value, description)`: Tests if `value` is `True`
 - `Equal(actual, expected, description)`: Tests if `actual` is equal to `expected`, uses simple `=` operator.
+- `StrictEqual(actual, expected, description)`: Tests if `actual` is equal to `expected`, first check the typenames and after uses simple `=` operator.
 - `NotEqual(actual, expected, description)`: Tests if `actual` is not equal to `expected`, uses simple `=` operator.
 - `Same(actual, expected, description)`: Tests if `actual` refers to the same object as `expected`, uses `Is` operator.
 - `NotSame(actual, expected, description)`: Tests if `actual` does not refer to the same object as `expected`, uses `Is` operator.
 - `assertTrue(actual, description)`: Tests if `actual` is true using `Equal` assertion.
 - `assertFalse(actual, description)`: Tests if `actual` is false using `Equal` assertion.
 - `assertInstanceOf(actualObj,strExpectedType, description)`: Tests if `actualObj` type is the same as `strExpectedType` use `TypeName` function.
+- `assertIsNull(actualObj,description)`: Tests if `actualObj` type is `Null` use `TypeName` function.
+- `assertIsEmpty(actualObj, description)`: Tests if `actualObj` type is `Empty` use `TypeName` function.
 
 
 ## Example

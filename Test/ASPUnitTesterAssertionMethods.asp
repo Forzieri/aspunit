@@ -85,6 +85,21 @@
 		) _
 	)
 
+	Call ASPUnit.AddModule( _
+		ASPUnit.CreateModule( _
+			"ASPUnitTester assert is null | is empty", _
+			Array( _
+				ASPUnit.CreateTest("ASPUnitTesterAssertIsNullWithNull"), _
+				ASPUnit.CreateTest("ASPUnitTesterAssertIsNullWithObject"), _
+				ASPUnit.CreateTest("ASPUnitTesterAssertIsNullWithPrimitive"), _
+				ASPUnit.CreateTest("ASPUnitTesterAssertIsEmptyWithEmpty"), _
+				ASPUnit.CreateTest("ASPUnitTesterAssertIsEmptyWithObject"), _
+				ASPUnit.CreateTest("ASPUnitTesterAssertIsEmptyWithPrimitive") _
+			), _
+			objLifecycle _
+		) _
+	)
+
 	Call ASPUnit.Run()
 
 	' Create a global instance of ASPUnitTester for testing
@@ -213,4 +228,44 @@
 		Set objB = Nothing
 		Set objA = Nothing
 	End Sub
+
+	' Is Null assertions
+	Sub ASPUnitTesterAssertIsNullWithNull()
+		Dim A
+		A = Null
+		Call ASPUnit.Equal(objService.assertIsNull(A,""), True, "Assert is null on NULL should return true")
+	End Sub
+		
+	Sub ASPUnitTesterAssertIsNullWithObject()
+		Dim A
+		Set A = new RegExp
+		Call ASPUnit.Equal(objService.assertIsNull(A,""), False, "Assert is null on RegExp should return false")
+		Set A = Nothing
+	End Sub
+		
+	Sub ASPUnitTesterAssertIsNullWithPrimitive()
+		Dim A
+		A = 21
+		Call ASPUnit.Equal(objService.assertIsNull(A,""), False, "Assert is null on integer should return false")
+	End Sub
+
+	Sub ASPUnitTesterAssertIsEmptyWithEmpty()
+		Dim A
+		A = Empty
+		Call ASPUnit.Equal(objService.assertIsEmpty(A,""), True, "Assert is empty on EMPTY should return true")
+	End Sub
+		
+	Sub ASPUnitTesterAssertIsEmptyWithObject()
+		Dim A
+		Set A = new RegExp
+		Call ASPUnit.Equal(objService.assertIsEmpty(A,""), False, "Assert is empty on RegExp should return false")
+		Set A = Nothing
+	End Sub
+		
+	Sub ASPUnitTesterAssertIsEmptyWithPrimitive()
+		Dim A
+		A = 21
+		Call ASPUnit.Equal(objService.assertIsEmpty(A,""), False, "Assert is empty on integer should return false")
+	End Sub
+		
 %>
