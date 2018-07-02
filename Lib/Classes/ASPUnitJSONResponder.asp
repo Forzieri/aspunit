@@ -123,15 +123,15 @@
 
 			strReturn = strValue
 			valueType = TypeName(strValue)
-			if  valueType = "String" then
+			if  IsObject(strReturn) or IsNull(strReturn) or IsEmpty(strReturn) then
+				strReturn = valueType
+			else 
 				strReturn = Replace(strReturn, "\", "\\")
 				strReturn = Replace(strReturn, """", "\""")
 				strReturn = Replace(strReturn, vbLf, "\n")
 				strReturn = Replace(strReturn, vbCr, "\n")
 				strReturn = Replace(strReturn, vbCrLf, "\n")
 				strReturn = Replace(strReturn, vbTab, "\t")
-			else 
-				strReturn = valueType
 			end if
 			JSONStringEscape = strReturn
 		End Function
