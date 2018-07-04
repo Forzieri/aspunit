@@ -113,9 +113,9 @@
 		Public Function StrictEqual(varActual, varExpected, strDescription)
 			SetInputsOnCurrentTest varActual, varExpected
 			if TypeName(varActual) = TypeName(varExpected) Then
-				Equal = Assert((varActual = varExpected), strDescription)
+				StrictEqual = Assert((varActual = varExpected), strDescription)
 			else
-				Equal = Assert(False, strDescription)
+				StrictEqual = Assert(False, strDescription)
 			end if
 		End Function
 
@@ -204,13 +204,17 @@
 		End Sub
 
 		Private Sub RunModuleTest(ByRef objTest)
+			Dim strError
 			Set m_CurrentTest = objTest
 
 			On Error Resume Next
 			Call GetRef(objTest.Name)()
 
 			If Err.Number <> 0 Then
-				Call Assert(False, Err.Description)
+				strError = "Error #" & Err.Number & "|" & _  
+				"" & Err.Description & "|" & _  
+				"(Source: " & Err.Source & ")" & "|"
+				Call Assert(False, strError)
 			End If
 
 			Err.Clear()
