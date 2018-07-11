@@ -110,6 +110,14 @@
 		Public Function assertIsEmpty(varActual, strDescription)
 			Call m_Tester.assertIsEmpty(varActual, strDescription)
 		End Function
+
+		Public Function assertDateGreaterThen(date1, date2, strDescription)
+			Call m_Tester.assertDateGreaterThen(date1, date2, strDescription)
+		End Function
+
+		Public Function assertDateLessThen(date1, date2, strDescription)
+			Call m_Tester.assertDateLessThen(date1, date2, strDescription)
+		End Function
 		
 		' UI Service Facade
 

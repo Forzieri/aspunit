@@ -100,6 +100,19 @@
 		) _
 	)
 
+	Call ASPUnit.AddModule( _
+		ASPUnit.CreateModule( _
+			"ASPUnitTester assert date", _
+			Array( _
+				ASPUnit.CreateTest("ASPUnitTesterAssertTomorrowGreaterThenToday"), _
+				ASPUnit.CreateTest("ASPUnitTesterAssertYesterdayGreaterThenToday"), _
+				ASPUnit.CreateTest("ASPUnitTesterAssertYesterdayLessThenToday"), _
+				ASPUnit.CreateTest("ASPUnitTesterAssertTomorrowLessThenToday") _
+			), _
+			objLifecycle _
+		) _
+	)
+
 	Call ASPUnit.Run()
 
 	' Create a global instance of ASPUnitTester for testing
@@ -266,6 +279,30 @@
 		Dim A
 		A = 21
 		Call ASPUnit.Equal(objService.assertIsEmpty(A,""), False, "Assert is empty on integer should return false")
+	End Sub
+
+	Sub ASPUnitTesterAssertTomorrowGreaterThenToday()
+		Dim today : today = now()
+		Dim tomorrow : tomorrow = DateAdd("d", 1, today) 
+		Call ASPUnit.Equal(objService.AssertDateGreaterThen(tomorrow, today, ""), True, "Tomorrow is greater then today")
+	End Sub
+	
+	Sub ASPUnitTesterAssertYesterdayLessThenToday()
+		Dim today : today = now()
+		Dim yesterday : yesterday = DateAdd("d", -1, today) 
+		Call ASPUnit.Equal(objService.AssertDateLessThen(yesterday, today, ""), True, "Yesterday is less then today")
+	End Sub
+		
+	Sub ASPUnitTesterAssertYesterdayGreaterThenToday()
+		Dim today : today = now()
+		Dim yesterday : yesterday = DateAdd("d", -1, today) 
+		Call ASPUnit.Equal(objService.AssertDateGreaterThen(yesterday, today, ""), False, "Yesterday is not greater then today")
+	End Sub
+	
+	Sub ASPUnitTesterAssertTomorrowLessThenToday()
+		Dim today : today = now()
+		Dim tomorrow : tomorrow = DateAdd("d", 1, today) 
+		Call ASPUnit.Equal(objService.AssertDateLessThen(tomorrow, today, ""), False, "Tomorrow is not less then today")
 	End Sub
 		
 %>
