@@ -290,7 +290,7 @@
 													<i class="page-module-test-icon page-module-test-icon-fail glyphicon glyphicon-remove"></i>
 												{{/if}}
 												<span class="page-module-test-name">{{name}}:</span>
-												<span class="page-module-test-description">{{description}}</span>
+												<span class="page-module-test-description">{{bold description}}</span>
 												{{#if passed}}
 												{{else}}
 												<br>
@@ -329,7 +329,7 @@
 
 					<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 					<script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-					<script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.0/handlebars.min.js"></script>
+					<script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.4.2/handlebars.min.js"></script>
 					<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.0/js/bootstrap.min.js"></script>
 
 					<%= objRunner.RenderJSLib() %>
@@ -403,6 +403,11 @@
 							function showPassedTests() {
 								$('.hidden').removeClass('hidden');
 							}
+
+							Handlebars.registerHelper("bold", function(text) {
+								var result = Handlebars.escapeExpression(text).replace("{{{", "<b>").replace("}}}", "</b>");
+								return new Handlebars.SafeString(result);
+							});
 						});
 					</script>
 

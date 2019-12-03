@@ -80,6 +80,11 @@
 		Private Function Assert(blnResult, strDescription)
 			If IsObject(m_CurrentTest) Then
 				m_CurrentTest.Passed = blnResult
+
+				if not blnResult then
+					strDescription = "{{{" & strDescription & "}}}"
+				end if
+
 				m_CurrentTest.Description = strDescription
 			End If
 
@@ -95,7 +100,7 @@
 				end if
 				if IsObject(varExpected) then
 					Set m_CurrentTest.varExpected = varExpected
-				else 
+				else
 					m_CurrentTest.varExpected = varExpected
 				end if
 			End If
@@ -223,8 +228,8 @@
 			Call GetRef(objTest.Name)()
 
 			If Err.Number <> 0 Then
-				strError = "Error #" & Err.Number & "|" & _  
-				"" & Err.Description & "|" & _  
+				strError = "Error #" & Err.Number & "|" & _
+				"" & Err.Description & "|" & _
 				"(Source: " & Err.Source & ")" & "|"
 				Call Assert(False, strError)
 			End If
@@ -309,17 +314,26 @@
 
 	Class ASPUnitTest
 		Public Name
-		Public Passed
 		Public varActual
 		Public varExpected
 
+		Private m_Passed
 		Private m_Description
 
 		Private Sub Class_Initialize
 			Set m_Description = Server.CreateObject("Commerce.SimpleList")
+			m_Passed = True
 			varActual = Empty
 			varExpected = Empty
 		End Sub
+
+		Public Property Let Passed(value)
+			m_Passed = m_Passed and value
+		End Property
+
+		Public Property Get Passed
+			Passed = m_Passed
+		End Property
 
 		Public Property Let Description(value)
 			m_Description.Add value
@@ -329,7 +343,9 @@
 			Dim out, index, value
 			out = ""
 			for each value in m_Description
-				out = out & value & ", "
+				if value <> "" then
+					out = out & value & ", "
+				end if
 			next
 			Description = Left(out, Len(out) - 2)
 		End Property
