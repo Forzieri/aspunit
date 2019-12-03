@@ -73,7 +73,7 @@
 			objLifecycle _
 		) _
 	)
-	
+
 	Call ASPUnit.AddModule( _
 		ASPUnit.CreateModule( _
 			"ASPUnitTester assert instance of Assertion Method Tests", _
@@ -104,10 +104,10 @@
 		ASPUnit.CreateModule( _
 			"ASPUnitTester assert date", _
 			Array( _
-				ASPUnit.CreateTest("ASPUnitTesterAssertTomorrowGreaterThenToday"), _
-				ASPUnit.CreateTest("ASPUnitTesterAssertYesterdayGreaterThenToday"), _
-				ASPUnit.CreateTest("ASPUnitTesterAssertYesterdayLessThenToday"), _
-				ASPUnit.CreateTest("ASPUnitTesterAssertTomorrowLessThenToday") _
+				ASPUnit.CreateTest("ASPUnitTesterAssertTomorrowGreaterThanToday"), _
+				ASPUnit.CreateTest("ASPUnitTesterAssertYesterdayGreaterThanToday"), _
+				ASPUnit.CreateTest("ASPUnitTesterAssertYesterdayLessThanToday"), _
+				ASPUnit.CreateTest("ASPUnitTesterAssertTomorrowLessThanToday") _
 			), _
 			objLifecycle _
 		) _
@@ -190,13 +190,13 @@
 	End Sub
 
 	Sub ASPUnitTesterAssertInstanceOfWithRightType()
-		Dim regex 
+		Dim regex
 		Set regex = New RegExp
 		Call ASPUnit.Equal(objService.assertInstanceOf(regex, "IRegExp2", ""), True, "Regexp instance should be of IRegExp2 type")
 	End Sub
 
 	Sub ASPUnitTesterAssertInstanceOfWithWrongType()
-		Dim notRegexp 
+		Dim notRegexp
 		notRegexp = "Not a string"
 		Call ASPUnit.Equal(objService.assertInstanceOf(notRegexp, "IRegExp2", ""), False, "String instance should not be of IRegExp2 type")
 	End Sub
@@ -248,14 +248,14 @@
 		A = Null
 		Call ASPUnit.Equal(objService.assertIsNull(A,""), True, "Assert is null on NULL should return true")
 	End Sub
-		
+
 	Sub ASPUnitTesterAssertIsNullWithObject()
 		Dim A
 		Set A = new RegExp
 		Call ASPUnit.Equal(objService.assertIsNull(A,""), False, "Assert is null on RegExp should return false")
 		Set A = Nothing
 	End Sub
-		
+
 	Sub ASPUnitTesterAssertIsNullWithPrimitive()
 		Dim A
 		A = 21
@@ -267,42 +267,42 @@
 		A = Empty
 		Call ASPUnit.Equal(objService.assertIsEmpty(A,""), True, "Assert is empty on EMPTY should return true")
 	End Sub
-		
+
 	Sub ASPUnitTesterAssertIsEmptyWithObject()
 		Dim A
 		Set A = new RegExp
 		Call ASPUnit.Equal(objService.assertIsEmpty(A,""), False, "Assert is empty on RegExp should return false")
 		Set A = Nothing
 	End Sub
-		
+
 	Sub ASPUnitTesterAssertIsEmptyWithPrimitive()
 		Dim A
 		A = 21
 		Call ASPUnit.Equal(objService.assertIsEmpty(A,""), False, "Assert is empty on integer should return false")
 	End Sub
 
-	Sub ASPUnitTesterAssertTomorrowGreaterThenToday()
+	Sub ASPUnitTesterAssertTomorrowGreaterThanToday()
 		Dim today : today = now()
-		Dim tomorrow : tomorrow = DateAdd("d", 1, today) 
-		Call ASPUnit.Equal(objService.AssertDateGreaterThen(tomorrow, today, ""), True, "Tomorrow is greater then today")
+		Dim tomorrow : tomorrow = DateAdd("d", 1, today)
+		Call ASPUnit.Equal(objService.AssertDateGreaterThan(tomorrow, today, ""), True, "Tomorrow is greater then today")
 	End Sub
-	
-	Sub ASPUnitTesterAssertYesterdayLessThenToday()
+
+	Sub ASPUnitTesterAssertYesterdayLessThanToday()
 		Dim today : today = now()
-		Dim yesterday : yesterday = DateAdd("d", -1, today) 
-		Call ASPUnit.Equal(objService.AssertDateLessThen(yesterday, today, ""), True, "Yesterday is less then today")
+		Dim yesterday : yesterday = DateAdd("d", -1, today)
+		Call ASPUnit.Equal(objService.AssertDateLessThan(yesterday, today, ""), True, "Yesterday is less then today")
 	End Sub
-		
-	Sub ASPUnitTesterAssertYesterdayGreaterThenToday()
+
+	Sub ASPUnitTesterAssertYesterdayGreaterThanToday()
 		Dim today : today = now()
-		Dim yesterday : yesterday = DateAdd("d", -1, today) 
-		Call ASPUnit.Equal(objService.AssertDateGreaterThen(yesterday, today, ""), False, "Yesterday is not greater then today")
+		Dim yesterday : yesterday = DateAdd("d", -1, today)
+		Call ASPUnit.Equal(objService.AssertDateGreaterThan(yesterday, today, ""), False, "Yesterday is not greater then today")
 	End Sub
-	
-	Sub ASPUnitTesterAssertTomorrowLessThenToday()
+
+	Sub ASPUnitTesterAssertTomorrowLessThanToday()
 		Dim today : today = now()
-		Dim tomorrow : tomorrow = DateAdd("d", 1, today) 
-		Call ASPUnit.Equal(objService.AssertDateLessThen(tomorrow, today, ""), False, "Tomorrow is not less then today")
+		Dim tomorrow : tomorrow = DateAdd("d", 1, today)
+		Call ASPUnit.Equal(objService.AssertDateLessThan(tomorrow, today, ""), False, "Tomorrow is not less then today")
 	End Sub
-		
+
 %>

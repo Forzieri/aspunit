@@ -159,16 +159,16 @@
 			assertInstanceOf = Equal(TypeName(objToCheck), strExpectedType, strDescription)
 		End Function
 
-		Public Function assertDateGreaterThen(date1,date2, strDescription)
+		Public Function assertDateGreaterThan(date1,date2, strDescription)
 			SetInputsOnCurrentTest date1, date2
 			Dim diff : diff = DateDiff("s", date2, date1)
-			AssertDateGreaterThen = Assert(diff > 0, strDescription)
+			AssertDateGreaterThan = Assert(diff > 0, strDescription)
 		End Function
 
-		Public Function assertDateLessThen(date1,date2, strDescription)
+		Public Function assertDateLessThan(date1,date2, strDescription)
 			SetInputsOnCurrentTest date1, date2
 			Dim diff : diff = DateDiff("s", date2, date1)
-			assertDateLessThen = Assert(diff < 0, strDescription)
+			assertDateLessThan = Assert(diff < 0, strDescription)
 		End Function
 
 		' Methods to run module tests
