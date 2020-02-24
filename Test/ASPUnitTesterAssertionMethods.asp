@@ -22,7 +22,9 @@
 			"ASPUnitTester Equal Assertion Method Tests", _
 			Array( _
 				ASPUnit.CreateTest("ASPUnitTesterEqualPassedTruthy"), _
-				ASPUnit.CreateTest("ASPUnitTesterEqualPassedFalsey") _
+				ASPUnit.CreateTest("ASPUnitTesterEqualPassedFalsey"), _
+				ASPUnit.CreateTest("ASPUnitTesterAssertEqualsPassedTruthy"), _
+				ASPUnit.CreateTest("ASPUnitTesterAssertEqualsPassedFalsey") _
 			), _
 			objLifecycle _
 		) _
@@ -144,6 +146,14 @@
 
 	Sub ASPUnitTesterEqualPassedFalsey()
 		Call ASPUnit.Equal(objService.Equal(True, False, ""), False, "Equal method should return falsey with unequal values")
+	End Sub
+
+	Sub ASPUnitTesterAssertEqualsPassedTruthy()
+		Call ASPUnit.AssertEquals(objService.Equal(True, True, ""), True, "Equal method should return truthy with equal values")
+	End Sub
+
+	Sub ASPUnitTesterAssertEqualsPassedFalsey()
+		Call ASPUnit.AssertEquals(objService.Equal(True, False, ""), False, "Equal method should return falsey with unequal values")
 	End Sub
 
 	' NotEqual Assertion Method Tests

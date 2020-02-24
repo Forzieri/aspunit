@@ -91,6 +91,10 @@
 			Call m_Tester.NotSame(varActual, varExpected, strDescription)
 		End Function
 
+		Public Function assertEquals(varActual, varExpected, strDescription)
+			Call m_Tester.assertEquals(varActual, varExpected, strDescription)
+		End Function
+
 		Public Function assertTrue(varActual, strDescription)
 			Call m_Tester.assertTrue(varActual, strDescription)
 		End Function

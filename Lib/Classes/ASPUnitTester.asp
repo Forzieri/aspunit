@@ -147,11 +147,15 @@
 			NotSame = Assert(Not (varActual Is varExpected), strDescription)
 		End Function
 
-		Public Function assertTrue(varActual,strDescription)
+		Public Function assertEquals(varActual, varExpected, strDescription)
+			assertEquals = Equal(varActual, varExpected, strDescription)
+		End Function
+
+		Public Function assertTrue(varActual, strDescription)
 			assertTrue = Equal(varActual, True, strDescription)
 		End Function
 
-		Public Function assertFalse(varActual,strDescription)
+		Public Function assertFalse(varActual, strDescription)
 			assertFalse = Equal(varActual, False, strDescription)
 		End Function
 
